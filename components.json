@@ -1,0 +1,20 @@
+{
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "style": "new-york",
+  "baseColor": "slate",
+  "cssVariables": true,
+  "tailwind": {
+    "config": "tailwind.config.js",
+    "css": "src/index.css",
+    "utils": "src/lib/utils"
+  },
+  "rsc": false,
+  "tsx": true,
+  "silent": true
+}
