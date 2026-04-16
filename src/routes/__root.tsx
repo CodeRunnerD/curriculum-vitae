@@ -22,7 +22,11 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'Jeferson Narvaez - Curriculum Vitae',
+        title: 'Jeferson Narvaez - Software Engineer',
+      },
+      {
+        name: 'description',
+        content: 'Software Engineer with 5+ years of experience. Specialized in microservices, cloud architecture, and full-stack development.',
       },
     ],
     links: [
@@ -42,7 +46,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <HeadContent />
       </head>
-      <body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
+      <body className="antialiased overflow-x-hidden">
         <QueryClientProvider client={queryClient}>
           <Header />
           {children}
