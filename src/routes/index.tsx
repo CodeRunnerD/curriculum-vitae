@@ -1,9 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useEffect, useRef } from 'react'
 import { 
   Briefcase, GraduationCap, Award, Mail, Phone, MapPin, 
   Linkedin, Github, FolderKanban, Trophy, ExternalLink, 
   ChevronRight, Code2, Cloud, Database, Sparkles
 } from 'lucide-react'
+import ParallaxHero from '../components/ParallaxHero'
 
 export const Route = createFileRoute('/')({ component: CVPage })
 
@@ -112,253 +114,302 @@ const skills = {
   databases: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis'],
 }
 
-const languages = [
-  { name: 'Spanish', level: 'Native' },
-  { name: 'English', level: 'B2 - Upper Intermediate' },
-]
+function ScrollReveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    
+    if (prefersReducedMotion) {
+      if (ref.current) {
+        ref.current.classList.add('visible')
+      }
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible')
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    )
+
+    if (ref.current) {
+      observer.observe(ref.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div ref={ref} className={`scroll-reveal ${className}`} style={{ animationDelay: `${delay}ms` }}>
+      {children}
+    </div>
+  )
+}
 
 function CVPage() {
   return (
-    <main className="page-wrap px-4 py-12 pb-20">
-      <section className="mb-16 animate-fade-in">
-        <div className="mb-6">
-          <span className="section-subtitle mb-2 block">Welcome</span>
-          <h1 className="mb-2 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-            <span className="gradient-text">{personalInfo.name}</span>
-          </h1>
-          <p className="text-xl font-mono text-[var(--accent-primary)] sm:text-2xl">
-            {personalInfo.title}
-          </p>
-        </div>
-
-        <div className="mb-8 flex flex-wrap gap-6">
-          <a 
-            href={`mailto:${personalInfo.email}`} 
-            className="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--accent-primary)] clickable"
-          >
-            <Mail className="h-4 w-4" />
-            {personalInfo.email}
-          </a>
-          <span className="flex items-center gap-2 text-[var(--text-secondary)]">
-            <Phone className="h-4 w-4" />
-            {personalInfo.phone}
-          </span>
-          <span className="flex items-center gap-2 text-[var(--text-secondary)]">
-            <MapPin className="h-4 w-4" />
-            {personalInfo.location}
-          </span>
-        </div>
-
-        <div className="flex flex-wrap gap-3">
-          <a 
-            href={`https://${personalInfo.linkedin}`} 
-            target="_blank" 
-            rel="noreferrer" 
-            className="btn-primary clickable"
-          >
-            <Linkedin className="h-4 w-4" />
-            LinkedIn
-            <ExternalLink className="h-3 w-3 opacity-70" />
-          </a>
-          <a 
-            href={`https://${personalInfo.github}`} 
-            target="_blank" 
-            rel="noreferrer" 
-            className="btn-secondary clickable"
-          >
-            <Github className="h-4 w-4" />
-            GitHub
-          </a>
-        </div>
-      </section>
-
-      <section className="card mb-12 p-8 animate-fade-in" style={{ animationDelay: '100ms' }}>
-        <div className="mb-4 flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)]">
-            <Sparkles className="h-5 w-5 text-[var(--accent-primary)]" />
+    <>
+      <ParallaxHero />
+      
+      <main className="page-wrap px-4 py-12 pb-20 -mt-16 relative z-10">
+        <section className="mb-16 animate-fade-in">
+          <div className="mb-6">
+            <span className="section-subtitle mb-2 block">Welcome</span>
+            <h1 className="mb-2 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+              <span className="gradient-text">{personalInfo.name}</span>
+            </h1>
+            <p className="text-xl font-mono text-[var(--accent-primary)] sm:text-2xl">
+              {personalInfo.title}
+            </p>
           </div>
-          <h2 className="section-title">About Me</h2>
-        </div>
-        <p className="text-lg leading-relaxed text-[var(--text-secondary)]">{summary}</p>
-      </section>
 
-      <section className="mb-12 animate-fade-in" style={{ animationDelay: '150ms' }}>
-        <div className="mb-8 flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)]">
-            <Briefcase className="h-5 w-5 text-[var(--accent-primary)]" />
+          <div className="mb-8 flex flex-wrap gap-6">
+            <a 
+              href={`mailto:${personalInfo.email}`} 
+              className="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--accent-primary)] clickable"
+            >
+              <Mail className="h-4 w-4" />
+              {personalInfo.email}
+            </a>
+            <span className="flex items-center gap-2 text-[var(--text-secondary)]">
+              <Phone className="h-4 w-4" />
+              {personalInfo.phone}
+            </span>
+            <span className="flex items-center gap-2 text-[var(--text-secondary)]">
+              <MapPin className="h-4 w-4" />
+              {personalInfo.location}
+            </span>
           </div>
-          <h2 className="section-title">Experience</h2>
-        </div>
-        <div className="space-y-6">
-          {experience.map((job, index) => (
-            <article key={index} className="card p-6">
-              <div className="mb-4 flex flex-wrap items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-lg font-semibold text-[var(--text-primary)]">{job.role}</h3>
-                  <p className="text-[var(--accent-primary)] font-mono text-sm">{job.company}</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-sm text-[var(--text-muted)]">{job.period}</p>
-                  <p className="text-xs text-[var(--text-muted)]">{job.location}</p>
-                </div>
+
+          <div className="flex flex-wrap gap-3">
+            <a 
+              href={`https://${personalInfo.linkedin}`} 
+              target="_blank" 
+              rel="noreferrer" 
+              className="btn-primary clickable"
+            >
+              <Linkedin className="h-4 w-4" />
+              LinkedIn
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
+            <a 
+              href={`https://${personalInfo.github}`} 
+              target="_blank" 
+              rel="noreferrer" 
+              className="btn-secondary clickable"
+            >
+              <Github className="h-4 w-4" />
+              GitHub
+            </a>
+          </div>
+        </section>
+
+        <ScrollReveal>
+          <section className="card mb-12 p-8">
+            <div className="mb-4 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)] animate-float">
+                <Sparkles className="h-5 w-5 text-[var(--accent-primary)]" />
               </div>
-              <ul className="space-y-2">
-                {job.achievements.map((achievement, i) => (
-                  <li key={i} className="flex gap-3 text-sm text-[var(--text-secondary)]">
-                    <ChevronRight className="h-4 w-4 flex-shrink-0 mt-1 text-[var(--accent-primary)]" />
-                    {achievement}
-                  </li>
+              <h2 className="section-title">About Me</h2>
+            </div>
+            <p className="text-lg leading-relaxed text-[var(--text-secondary)]">{summary}</p>
+          </section>
+        </ScrollReveal>
+
+        <ScrollReveal delay={100}>
+          <section className="mb-12">
+            <div className="mb-8 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)] animate-float">
+                <Briefcase className="h-5 w-5 text-[var(--accent-primary)]" />
+              </div>
+              <h2 className="section-title">Experience</h2>
+            </div>
+            <div className="space-y-6">
+              {experience.map((job, index) => (
+                <article key={index} className="card p-6">
+                  <div className="mb-4 flex flex-wrap items-start justify-between gap-4">
+                    <div>
+                      <h3 className="text-lg font-semibold text-[var(--text-primary)]">{job.role}</h3>
+                      <p className="text-[var(--accent-primary)] font-mono text-sm">{job.company}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm text-[var(--text-muted)]">{job.period}</p>
+                      <p className="text-xs text-[var(--text-muted)]">{job.location}</p>
+                    </div>
+                  </div>
+                  <ul className="space-y-2">
+                    {job.achievements.map((achievement, i) => (
+                      <li key={i} className="flex gap-3 text-sm text-[var(--text-secondary)]">
+                        <ChevronRight className="h-4 w-4 flex-shrink-0 mt-1 text-[var(--accent-primary)]" />
+                        {achievement}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </section>
+        </ScrollReveal>
+
+        <ScrollReveal delay={200}>
+          <section className="mb-12">
+            <div className="mb-8 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)] animate-float">
+                <FolderKanban className="h-5 w-5 text-[var(--accent-primary)]" />
+              </div>
+              <h2 className="section-title">Projects</h2>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {projects.map((project, index) => (
+                <article key={index} className="card p-5 group clickable">
+                  <div className="mb-3 flex items-center justify-between">
+                    <h3 className="text-base font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
+                      {project.name}
+                    </h3>
+                    <ExternalLink className="h-4 w-4 text-[var(--text-muted)] opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                  <p className="tag mb-3">{project.tech}</p>
+                  <p className="text-sm text-[var(--text-secondary)]">{project.description}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        </ScrollReveal>
+
+        <ScrollReveal delay={300}>
+          <section className="mb-12 grid gap-6 sm:grid-cols-2">
+            <div className="card p-6">
+              <div className="mb-6 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)] animate-float">
+                  <GraduationCap className="h-5 w-5 text-[var(--accent-primary)]" />
+                </div>
+                <h2 className="section-title">Education</h2>
+              </div>
+              <div className="timeline-item">
+                <h3 className="text-base font-semibold text-[var(--text-primary)]">{education[0].degree}</h3>
+                <p className="text-sm text-[var(--text-secondary)]">{education[0].school}</p>
+                <p className="font-mono text-xs text-[var(--text-muted)]">{education[0].period} · {education[0].location}</p>
+              </div>
+            </div>
+
+            <div className="card p-6">
+              <div className="mb-6 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)] animate-pulse-glow">
+                  <Trophy className="h-5 w-5 text-[var(--accent-primary)]" />
+                </div>
+                <h2 className="section-title">Awards</h2>
+              </div>
+              <div className="space-y-3">
+                {achievements.map((award, index) => (
+                  <div key={index} className="flex items-center gap-3">
+                    <div className="h-1.5 w-1.5 rounded-full bg-[var(--accent-primary)]" />
+                    <span className="text-sm text-[var(--text-secondary)]">{award}</span>
+                  </div>
                 ))}
-              </ul>
-            </article>
-          ))}
-        </div>
-      </section>
+              </div>
+            </div>
+          </section>
+        </ScrollReveal>
 
-      <section className="mb-12 animate-fade-in" style={{ animationDelay: '200ms' }}>
-        <div className="mb-8 flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)]">
-            <FolderKanban className="h-5 w-5 text-[var(--accent-primary)]" />
-          </div>
-          <h2 className="section-title">Projects</h2>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {projects.map((project, index) => (
-            <article key={index} className="card p-5 group clickable">
-              <div className="mb-3 flex items-center justify-between">
-                <h3 className="text-base font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
-                  {project.name}
+        <ScrollReveal delay={400}>
+          <section className="mb-12">
+            <div className="mb-8 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)] animate-float">
+                <Award className="h-5 w-5 text-[var(--accent-primary)]" />
+              </div>
+              <h2 className="section-title">Certifications</h2>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-3">
+              {certifications.map((cert, index) => (
+                <article key={index} className="card p-5 text-center clickable">
+                  <h3 className="mb-2 text-sm font-semibold text-[var(--text-primary)]">{cert.name}</h3>
+                  <p className="text-xs text-[var(--text-muted)]">{cert.issuer}</p>
+                  <p className="font-mono text-xs text-[var(--accent-primary)]">{cert.year}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        </ScrollReveal>
+
+        <ScrollReveal delay={500}>
+          <section className="mb-12">
+            <div className="mb-8 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)] animate-float">
+                <Code2 className="h-5 w-5 text-[var(--accent-primary)]" />
+              </div>
+              <h2 className="section-title">Technical Skills</h2>
+            </div>
+            <div className="grid gap-6 sm:grid-cols-2">
+              <div className="card p-5">
+                <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-[var(--text-primary)]">
+                  <Code2 className="h-4 w-4 text-[var(--accent-primary)]" />
+                  Languages
                 </h3>
-                <ExternalLink className="h-4 w-4 text-[var(--text-muted)] opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="flex flex-wrap gap-2">
+                  {skills.languages.map((skill) => (
+                    <span key={skill} className="skill-tag">{skill}</span>
+                  ))}
+                </div>
               </div>
-              <p className="tag mb-3">{project.tech}</p>
-              <p className="text-sm text-[var(--text-secondary)]">{project.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mb-12 grid gap-6 sm:grid-cols-2 animate-fade-in" style={{ animationDelay: '250ms' }}>
-        <div className="card p-6">
-          <div className="mb-6 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)]">
-              <GraduationCap className="h-5 w-5 text-[var(--accent-primary)]" />
-            </div>
-            <h2 className="section-title">Education</h2>
-          </div>
-          <div className="timeline-item">
-            <h3 className="text-base font-semibold text-[var(--text-primary)]">{education[0].degree}</h3>
-            <p className="text-sm text-[var(--text-secondary)]">{education[0].school}</p>
-            <p className="font-mono text-xs text-[var(--text-muted)]">{education[0].period} · {education[0].location}</p>
-          </div>
-        </div>
-
-        <div className="card p-6">
-          <div className="mb-6 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)]">
-              <Trophy className="h-5 w-5 text-[var(--accent-primary)]" />
-            </div>
-            <h2 className="section-title">Awards</h2>
-          </div>
-          <div className="space-y-3">
-            {achievements.map((award, index) => (
-              <div key={index} className="flex items-center gap-3">
-                <div className="h-1.5 w-1.5 rounded-full bg-[var(--accent-primary)]" />
-                <span className="text-sm text-[var(--text-secondary)]">{award}</span>
+              <div className="card p-5">
+                <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-[var(--text-primary)]">
+                  <Sparkles className="h-4 w-4 text-[var(--accent-primary)]" />
+                  Frameworks
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {skills.frameworks.map((skill) => (
+                    <span key={skill} className="skill-tag">{skill}</span>
+                  ))}
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              <div className="card p-5">
+                <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-[var(--text-primary)]">
+                  <Cloud className="h-4 w-4 text-[var(--accent-primary)]" />
+                  Cloud & DevOps
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {skills.cloudDevOps.map((skill) => (
+                    <span key={skill} className="skill-tag">{skill}</span>
+                  ))}
+                </div>
+              </div>
+              <div className="card p-5">
+                <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-[var(--text-primary)]">
+                  <Database className="h-4 w-4 text-[var(--accent-primary)]" />
+                  Databases
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {skills.databases.map((skill) => (
+                    <span key={skill} className="skill-tag">{skill}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        </ScrollReveal>
 
-      <section className="mb-12 animate-fade-in" style={{ animationDelay: '300ms' }}>
-        <div className="mb-8 flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)]">
-            <Award className="h-5 w-5 text-[var(--accent-primary)]" />
-          </div>
-          <h2 className="section-title">Certifications</h2>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-3">
-          {certifications.map((cert, index) => (
-            <article key={index} className="card p-5 text-center clickable">
-              <h3 className="mb-2 text-sm font-semibold text-[var(--text-primary)]">{cert.name}</h3>
-              <p className="text-xs text-[var(--text-muted)]">{cert.issuer}</p>
-              <p className="font-mono text-xs text-[var(--accent-primary)]">{cert.year}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mb-12 animate-fade-in" style={{ animationDelay: '350ms' }}>
-        <div className="mb-8 flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)]">
-            <Code2 className="h-5 w-5 text-[var(--accent-primary)]" />
-          </div>
-          <h2 className="section-title">Technical Skills</h2>
-        </div>
-        <div className="grid gap-6 sm:grid-cols-2">
-          <div className="card p-5">
-            <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-[var(--text-primary)]">
-              <Code2 className="h-4 w-4 text-[var(--accent-primary)]" />
-              Languages
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {skills.languages.map((skill) => (
-                <span key={skill} className="skill-tag">{skill}</span>
-              ))}
-            </div>
-          </div>
-          <div className="card p-5">
-            <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-[var(--text-primary)]">
-              <Sparkles className="h-4 w-4 text-[var(--accent-primary)]" />
-              Frameworks
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {skills.frameworks.map((skill) => (
-                <span key={skill} className="skill-tag">{skill}</span>
-              ))}
-            </div>
-          </div>
-          <div className="card p-5">
-            <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-[var(--text-primary)]">
-              <Cloud className="h-4 w-4 text-[var(--accent-primary)]" />
-              Cloud & DevOps
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {skills.cloudDevOps.map((skill) => (
-                <span key={skill} className="skill-tag">{skill}</span>
-              ))}
-            </div>
-          </div>
-          <div className="card p-5">
-            <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-[var(--text-primary)]">
-              <Database className="h-4 w-4 text-[var(--accent-primary)]" />
-              Databases
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {skills.databases.map((skill) => (
-                <span key={skill} className="skill-tag">{skill}</span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="animate-fade-in" style={{ animationDelay: '400ms' }}>
-        <div className="card p-8 text-center">
-          <h2 className="section-title mb-4">Let's Work Together</h2>
-          <p className="mb-6 text-[var(--text-secondary)]">
-            Interested in working together? Feel free to reach out.
-          </p>
-          <a 
-            href={`mailto:${personalInfo.email}`} 
-            className="btn-primary mx-auto inline-flex clickable"
-          >
-            <Mail className="h-4 w-4" />
-            {personalInfo.email}
-          </a>
-        </div>
-      </section>
-    </main>
+        <ScrollReveal delay={600}>
+          <section className="card p-8 text-center">
+            <h2 className="section-title mb-4">Let's Work Together</h2>
+            <p className="mb-6 text-[var(--text-secondary)]">
+              Interested in working together? Feel free to reach out.
+            </p>
+            <a 
+              href={`mailto:${personalInfo.email}`} 
+              className="btn-primary mx-auto inline-flex clickable"
+            >
+              <Mail className="h-4 w-4" />
+              {personalInfo.email}
+            </a>
+          </section>
+        </ScrollReveal>
+      </main>
+    </>
   )
 }
