@@ -1,5 +1,9 @@
 Welcome to your new TanStack Start app! 
 
+# Live Preview
+
+https://cvnarvaez-frontend-z1yun7-39961f-2-24-204-229.traefik.me
+
 # Getting Started
 
 To run this application:
