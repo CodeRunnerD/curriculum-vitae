@@ -17,7 +17,7 @@ export default function Header() {
 
         <div className="ml-auto flex items-center gap-1.5 sm:ml-0 sm:gap-2">
           <a
-            href="https://linkedin.com/in/jefersonnarvaez"
+            href="https://linkedin.com/in/jeferson-narvaez-553b90148"
             target="_blank"
             rel="noreferrer"
             className="hidden rounded-xl p-2 text-[var(--sea-ink-soft)] transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)] sm:block"

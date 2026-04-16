@@ -9,7 +9,7 @@ const personalInfo = {
   email: 'jeferson.narvaez@outlook.com',
   phone: '+593 98 967 6161',
   location: 'Quito, Ecuador',
-  linkedin: 'linkedin.com/in/jefersonnarvaez',
+  linkedin: 'linkedin.com/in/jeferson-narvaez-553b90148',
   github: 'github.com/jefersonnarvaez',
 }
 
