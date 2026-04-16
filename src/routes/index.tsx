@@ -1,5 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Mountain, Briefcase, GraduationCap, Award, Mail, Phone, MapPin, Linkedin, Github, FolderKanban, Trophy } from 'lucide-react'
+import { 
+  Briefcase, GraduationCap, Award, Mail, Phone, MapPin, 
+  Linkedin, Github, FolderKanban, Trophy, ExternalLink, 
+  ChevronRight, Code2, Cloud, Database, Sparkles
+} from 'lucide-react'
 
 export const Route = createFileRoute('/')({ component: CVPage })
 
@@ -13,7 +17,7 @@ const personalInfo = {
   github: 'github.com/jefersonnarvaez',
 }
 
-const summary = `Mountain to Code. Software Engineer with 5+ years of experience developing robust and scalable solutions. Passionate about creating efficient systems and solving complex problems. Strong background in full-stack development with a focus on clean architecture and best practices.`
+const summary = `Software Engineer with 5+ years of experience developing robust and scalable solutions. Passionate about creating efficient systems and solving complex problems. Strong background in full-stack development with a focus on clean architecture and best practices.`
 
 const experience = [
   {
@@ -27,7 +31,6 @@ const experience = [
       'Mentored junior developers and conducted code reviews, improving team productivity by 25%',
       'Implemented CI/CD pipelines using GitHub Actions, automating testing and deployment workflows',
       'Designed and developed RESTful APIs with high availability requirements handling 10k+ requests per second',
-      'Collaborated with cross-functional teams to deliver cloud-native solutions for enterprise clients',
     ],
   },
   {
@@ -39,7 +42,6 @@ const experience = [
       'Developed RESTful APIs and web applications using Java, Spring Boot, and React',
       'Collaborated with cross-functional teams to deliver enterprise-level solutions for Fortune 500 clients',
       'Optimized database queries and improved application performance by 35%',
-      'Participated in agile ceremonies and contributed to sprint planning',
       'Worked on projects: Banc Sabadell (Banking), Banistmo (Banking), Kia (Automotive), Centrum (Education)',
       'Implemented authentication and authorization systems using OAuth 2.0 and JWT',
     ],
@@ -79,11 +81,6 @@ const projects = [
     tech: 'Python, Apache Kafka, Redis, React',
     description: 'Created real-time data visualization platform processing 1M+ events per day',
   },
-  {
-    name: 'Serverless Applications',
-    tech: 'AWS Lambda, API Gateway, DynamoDB',
-    description: 'Built serverless solutions reducing infrastructure costs by 30%',
-  },
 ]
 
 const education = [
@@ -96,20 +93,20 @@ const education = [
 ]
 
 const certifications = [
-  { name: 'AWS Certified Solutions Architect', issuer: 'Amazon Web Services', year: '2023' },
-  { name: 'AWS Certified Developer', issuer: 'Amazon Web Services', year: '2022' },
-  { name: 'Certified Kubernetes Administrator', issuer: 'CNCF', year: '2023' },
+  { name: 'AWS Solutions Architect', issuer: 'Amazon Web Services', year: '2023' },
+  { name: 'AWS Developer', issuer: 'Amazon Web Services', year: '2022' },
+  { name: 'Kubernetes Administrator', issuer: 'CNCF', year: '2023' },
 ]
 
 const achievements = [
   'Epam Star Award - Q4 2023',
   'Epam Innovation Award - 2024',
   'Globant Innovation Award - 2022',
-  'Top performer in Java certification - Globant',
+  'Top performer in Java certification',
 ]
 
 const skills = {
-  languages: ['Go', 'Python', 'Java', 'JavaScript'],
+  languages: ['Go', 'Python', 'Java', 'JavaScript', 'TypeScript'],
   frameworks: ['Spring Boot', 'Django', 'React', 'FastAPI', 'Node.js'],
   cloudDevOps: ['AWS', 'GCP', 'Docker', 'Kubernetes', 'Terraform', 'Jenkins'],
   databases: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis'],
@@ -120,77 +117,95 @@ const languages = [
   { name: 'English', level: 'B2 - Upper Intermediate' },
 ]
 
-const interests = [
-  'Mountain to Code',
-  'Cloud Architecture',
-  'Open Source',
-  'Continuous Learning',
-]
-
 function CVPage() {
   return (
-    <main className="page-wrap px-4 pb-8 pt-14">
-      <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
-        <div className="pointer-events-none absolute -left-20 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.32),transparent_66%)]" />
-        <div className="pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]" />
-        
-        <header className="mb-6">
-          <h1 className="display-title mb-2 text-4xl font-bold tracking-tight text-[var(--sea-ink)] sm:text-5xl">
-            {personalInfo.name}
+    <main className="page-wrap px-4 py-12 pb-20">
+      <section className="mb-16 animate-fade-in">
+        <div className="mb-6">
+          <span className="section-subtitle mb-2 block">Welcome</span>
+          <h1 className="mb-2 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+            <span className="gradient-text">{personalInfo.name}</span>
           </h1>
-          <p className="text-xl text-[var(--sea-ink-soft)]">{personalInfo.title}</p>
-        </header>
+          <p className="text-xl font-mono text-[var(--accent-primary)] sm:text-2xl">
+            {personalInfo.title}
+          </p>
+        </div>
 
-        <div className="flex flex-wrap gap-4 mb-6 text-sm text-[var(--sea-ink-soft)]">
-          <a href={`mailto:${personalInfo.email}`} className="flex items-center gap-2 hover:text-[var(--lagoon-deep)]">
+        <div className="mb-8 flex flex-wrap gap-6">
+          <a 
+            href={`mailto:${personalInfo.email}`} 
+            className="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--accent-primary)] clickable"
+          >
             <Mail className="h-4 w-4" />
             {personalInfo.email}
           </a>
-          <span className="flex items-center gap-2">
+          <span className="flex items-center gap-2 text-[var(--text-secondary)]">
             <Phone className="h-4 w-4" />
             {personalInfo.phone}
           </span>
-          <span className="flex items-center gap-2">
+          <span className="flex items-center gap-2 text-[var(--text-secondary)]">
             <MapPin className="h-4 w-4" />
             {personalInfo.location}
           </span>
         </div>
 
-        <div className="flex flex-wrap gap-4">
-          <a href={`https://${personalInfo.linkedin}`} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm font-semibold text-[var(--lagoon-deep)] hover:underline">
-            <Linkedin className="h-4 w-4" /> LinkedIn
+        <div className="flex flex-wrap gap-3">
+          <a 
+            href={`https://${personalInfo.linkedin}`} 
+            target="_blank" 
+            rel="noreferrer" 
+            className="btn-primary clickable"
+          >
+            <Linkedin className="h-4 w-4" />
+            LinkedIn
+            <ExternalLink className="h-3 w-3 opacity-70" />
           </a>
-          <a href={`https://${personalInfo.github}`} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm font-semibold text-[var(--lagoon-deep)] hover:underline">
-            <Github className="h-4 w-4" /> GitHub
+          <a 
+            href={`https://${personalInfo.github}`} 
+            target="_blank" 
+            rel="noreferrer" 
+            className="btn-secondary clickable"
+          >
+            <Github className="h-4 w-4" />
+            GitHub
           </a>
         </div>
       </section>
 
-      <section className="mt-6 island-shell rounded-2xl p-6 sm:p-8">
-        <div className="flex items-center gap-3 mb-4">
-          <Mountain className="h-5 w-5 text-[var(--lagoon-deep)]" />
-          <h2 className="text-xl font-semibold text-[var(--sea-ink)]">Profile</h2>
+      <section className="card mb-12 p-8 animate-fade-in" style={{ animationDelay: '100ms' }}>
+        <div className="mb-4 flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)]">
+            <Sparkles className="h-5 w-5 text-[var(--accent-primary)]" />
+          </div>
+          <h2 className="section-title">About Me</h2>
         </div>
-        <p className="text-[var(--sea-ink-soft)] leading-relaxed">{summary}</p>
+        <p className="text-lg leading-relaxed text-[var(--text-secondary)]">{summary}</p>
       </section>
 
-      <section className="mt-6 island-shell rounded-2xl p-6 sm:p-8">
-        <div className="flex items-center gap-3 mb-6">
-          <Briefcase className="h-5 w-5 text-[var(--lagoon-deep)]" />
-          <h2 className="text-xl font-semibold text-[var(--sea-ink)]">Professional Experience</h2>
+      <section className="mb-12 animate-fade-in" style={{ animationDelay: '150ms' }}>
+        <div className="mb-8 flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)]">
+            <Briefcase className="h-5 w-5 text-[var(--accent-primary)]" />
+          </div>
+          <h2 className="section-title">Experience</h2>
         </div>
-        <div className="space-y-8">
+        <div className="space-y-6">
           {experience.map((job, index) => (
-            <article key={index} className="relative pl-8 border-l-2 border-[var(--line)]">
-              <div className="absolute -left-[9px] top-1 h-4 w-4 rounded-full bg-[var(--lagoon)]" />
-              <div className="mb-2">
-                <h3 className="text-lg font-semibold text-[var(--sea-ink)]">{job.role}</h3>
-                <p className="text-[var(--sea-ink-soft)]">{job.company} · {job.period} · {job.location}</p>
+            <article key={index} className="card p-6">
+              <div className="mb-4 flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <h3 className="text-lg font-semibold text-[var(--text-primary)]">{job.role}</h3>
+                  <p className="text-[var(--accent-primary)] font-mono text-sm">{job.company}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm text-[var(--text-muted)]">{job.period}</p>
+                  <p className="text-xs text-[var(--text-muted)]">{job.location}</p>
+                </div>
               </div>
               <ul className="space-y-2">
                 {job.achievements.map((achievement, i) => (
-                  <li key={i} className="text-sm text-[var(--sea-ink-soft)] flex gap-2">
-                    <span className="text-[var(--lagoon-deep)]">•</span>
+                  <li key={i} className="flex gap-3 text-sm text-[var(--text-secondary)]">
+                    <ChevronRight className="h-4 w-4 flex-shrink-0 mt-1 text-[var(--accent-primary)]" />
                     {achievement}
                   </li>
                 ))}
@@ -200,134 +215,148 @@ function CVPage() {
         </div>
       </section>
 
-      <section className="mt-6 island-shell rounded-2xl p-6 sm:p-8">
-        <div className="flex items-center gap-3 mb-6">
-          <FolderKanban className="h-5 w-5 text-[var(--lagoon-deep)]" />
-          <h2 className="text-xl font-semibold text-[var(--sea-ink)]">Projects</h2>
+      <section className="mb-12 animate-fade-in" style={{ animationDelay: '200ms' }}>
+        <div className="mb-8 flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)]">
+            <FolderKanban className="h-5 w-5 text-[var(--accent-primary)]" />
+          </div>
+          <h2 className="section-title">Projects</h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           {projects.map((project, index) => (
-            <article key={index} className="rounded-xl border border-[var(--line)] p-4">
-              <h3 className="text-base font-semibold text-[var(--sea-ink)]">{project.name}</h3>
-              <p className="text-sm text-[var(--lagoon-deep)] mb-2">{project.tech}</p>
-              <p className="text-sm text-[var(--sea-ink-soft)]">{project.description}</p>
+            <article key={index} className="card p-5 group clickable">
+              <div className="mb-3 flex items-center justify-between">
+                <h3 className="text-base font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
+                  {project.name}
+                </h3>
+                <ExternalLink className="h-4 w-4 text-[var(--text-muted)] opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+              <p className="tag mb-3">{project.tech}</p>
+              <p className="text-sm text-[var(--text-secondary)]">{project.description}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="mt-6 island-shell rounded-2xl p-6 sm:p-8">
-        <div className="flex items-center gap-3 mb-6">
-          <Trophy className="h-5 w-5 text-[var(--lagoon-deep)]" />
-          <h2 className="text-xl font-semibold text-[var(--sea-ink)]">Awards & Achievements</h2>
+      <section className="mb-12 grid gap-6 sm:grid-cols-2 animate-fade-in" style={{ animationDelay: '250ms' }}>
+        <div className="card p-6">
+          <div className="mb-6 flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)]">
+              <GraduationCap className="h-5 w-5 text-[var(--accent-primary)]" />
+            </div>
+            <h2 className="section-title">Education</h2>
+          </div>
+          <div className="timeline-item">
+            <h3 className="text-base font-semibold text-[var(--text-primary)]">{education[0].degree}</h3>
+            <p className="text-sm text-[var(--text-secondary)]">{education[0].school}</p>
+            <p className="font-mono text-xs text-[var(--text-muted)]">{education[0].period} · {education[0].location}</p>
+          </div>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {achievements.map((award, index) => (
-            <article key={index} className="flex items-center gap-2">
-              <span className="text-[var(--lagoon-deep)]">★</span>
-              <span className="text-sm text-[var(--sea-ink-soft)]">{award}</span>
-            </article>
-          ))}
+
+        <div className="card p-6">
+          <div className="mb-6 flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)]">
+              <Trophy className="h-5 w-5 text-[var(--accent-primary)]" />
+            </div>
+            <h2 className="section-title">Awards</h2>
+          </div>
+          <div className="space-y-3">
+            {achievements.map((award, index) => (
+              <div key={index} className="flex items-center gap-3">
+                <div className="h-1.5 w-1.5 rounded-full bg-[var(--accent-primary)]" />
+                <span className="text-sm text-[var(--text-secondary)]">{award}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="mt-6 island-shell rounded-2xl p-6 sm:p-8">
-        <div className="flex items-center gap-3 mb-6">
-          <GraduationCap className="h-5 w-5 text-[var(--lagoon-deep)]" />
-          <h2 className="text-xl font-semibold text-[var(--sea-ink)]">Education</h2>
+      <section className="mb-12 animate-fade-in" style={{ animationDelay: '300ms' }}>
+        <div className="mb-8 flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)]">
+            <Award className="h-5 w-5 text-[var(--accent-primary)]" />
+          </div>
+          <h2 className="section-title">Certifications</h2>
         </div>
-        <div className="space-y-4">
-          {education.map((edu, index) => (
-            <article key={index} className="relative pl-6 border-l-2 border-[var(--line)]">
-              <div className="absolute -left-[7px] top-1 h-3 w-3 rounded-full bg-[var(--lagoon)]" />
-              <h3 className="text-base font-semibold text-[var(--sea-ink)]">{edu.degree}</h3>
-              <p className="text-[var(--sea-ink-soft)]">{edu.school} · {edu.period} · {edu.location}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mt-6 island-shell rounded-2xl p-6 sm:p-8">
-        <div className="flex items-center gap-3 mb-6">
-          <Award className="h-5 w-5 text-[var(--lagoon-deep)]" />
-          <h2 className="text-xl font-semibold text-[var(--sea-ink)]">Certifications</h2>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-3">
           {certifications.map((cert, index) => (
-            <article key={index} className="rounded-xl border border-[var(--line)] p-4">
-              <h3 className="text-base font-semibold text-[var(--sea-ink)]">{cert.name}</h3>
-              <p className="text-sm text-[var(--sea-ink-soft)]">{cert.issuer} · {cert.year}</p>
+            <article key={index} className="card p-5 text-center clickable">
+              <h3 className="mb-2 text-sm font-semibold text-[var(--text-primary)]">{cert.name}</h3>
+              <p className="text-xs text-[var(--text-muted)]">{cert.issuer}</p>
+              <p className="font-mono text-xs text-[var(--accent-primary)]">{cert.year}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="mt-6 island-shell rounded-2xl p-6 sm:p-8">
-        <h2 className="text-xl font-semibold text-[var(--sea-ink)] mb-6">Technical Skills</h2>
+      <section className="mb-12 animate-fade-in" style={{ animationDelay: '350ms' }}>
+        <div className="mb-8 flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)]">
+            <Code2 className="h-5 w-5 text-[var(--accent-primary)]" />
+          </div>
+          <h2 className="section-title">Technical Skills</h2>
+        </div>
         <div className="grid gap-6 sm:grid-cols-2">
-          <div>
-            <h3 className="text-sm font-semibold text-[var(--sea-ink)] mb-3">Programming Languages</h3>
+          <div className="card p-5">
+            <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-[var(--text-primary)]">
+              <Code2 className="h-4 w-4 text-[var(--accent-primary)]" />
+              Languages
+            </h3>
             <div className="flex flex-wrap gap-2">
               {skills.languages.map((skill) => (
-                <span key={skill} className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1 text-sm text-[var(--sea-ink)]">
-                  {skill}
-                </span>
+                <span key={skill} className="skill-tag">{skill}</span>
               ))}
             </div>
           </div>
-          <div>
-            <h3 className="text-sm font-semibold text-[var(--sea-ink)] mb-3">Frameworks</h3>
+          <div className="card p-5">
+            <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-[var(--text-primary)]">
+              <Sparkles className="h-4 w-4 text-[var(--accent-primary)]" />
+              Frameworks
+            </h3>
             <div className="flex flex-wrap gap-2">
               {skills.frameworks.map((skill) => (
-                <span key={skill} className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1 text-sm text-[var(--sea-ink)]">
-                  {skill}
-                </span>
+                <span key={skill} className="skill-tag">{skill}</span>
               ))}
             </div>
           </div>
-          <div>
-            <h3 className="text-sm font-semibold text-[var(--sea-ink)] mb-3">Cloud & DevOps</h3>
+          <div className="card p-5">
+            <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-[var(--text-primary)]">
+              <Cloud className="h-4 w-4 text-[var(--accent-primary)]" />
+              Cloud & DevOps
+            </h3>
             <div className="flex flex-wrap gap-2">
               {skills.cloudDevOps.map((skill) => (
-                <span key={skill} className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1 text-sm text-[var(--sea-ink)]">
-                  {skill}
-                </span>
+                <span key={skill} className="skill-tag">{skill}</span>
               ))}
             </div>
           </div>
-          <div>
-            <h3 className="text-sm font-semibold text-[var(--sea-ink)] mb-3">Databases</h3>
+          <div className="card p-5">
+            <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-[var(--text-primary)]">
+              <Database className="h-4 w-4 text-[var(--accent-primary)]" />
+              Databases
+            </h3>
             <div className="flex flex-wrap gap-2">
               {skills.databases.map((skill) => (
-                <span key={skill} className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1 text-sm text-[var(--sea-ink)]">
-                  {skill}
-                </span>
+                <span key={skill} className="skill-tag">{skill}</span>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="mt-6 island-shell rounded-2xl p-6 sm:p-8">
-        <h2 className="text-xl font-semibold text-[var(--sea-ink)] mb-6">Languages</h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {languages.map((lang, index) => (
-            <article key={index} className="rounded-xl border border-[var(--line)] p-4">
-              <h3 className="text-base font-semibold text-[var(--sea-ink)]">{lang.name}</h3>
-              <p className="text-sm text-[var(--sea-ink-soft)]">{lang.level}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mt-6 island-shell rounded-2xl p-6 sm:p-8">
-        <h2 className="text-xl font-semibold text-[var(--sea-ink)] mb-6">Interests</h2>
-        <div className="flex flex-wrap gap-2">
-          {interests.map((interest, index) => (
-            <span key={index} className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1 text-sm text-[var(--sea-ink)]">
-              {interest}
-            </span>
-          ))}
+      <section className="animate-fade-in" style={{ animationDelay: '400ms' }}>
+        <div className="card p-8 text-center">
+          <h2 className="section-title mb-4">Let's Work Together</h2>
+          <p className="mb-6 text-[var(--text-secondary)]">
+            Interested in working together? Feel free to reach out.
+          </p>
+          <a 
+            href={`mailto:${personalInfo.email}`} 
+            className="btn-primary mx-auto inline-flex clickable"
+          >
+            <Mail className="h-4 w-4" />
+            {personalInfo.email}
+          </a>
         </div>
       </section>
     </main>
